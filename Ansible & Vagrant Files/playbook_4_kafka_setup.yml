@@ -1,0 +1,54 @@
+---
+- name: Playbook 4
+  hosts: MyLocalVMs
+
+
+#####################################################
+### Play 4: Modify Kafka configs for VM2
+#####################################################  
+- name: Modify Kafka configs
+  hosts: 18.117.77.205 ansible_connection=ssh ansible_ssh_private_key_file=/vagrant/CS4287-team7.pem
+  remote_user: ubuntu
+  become: yes
+
+  tasks:
+    - name: Copy server file to the remote machine
+      ansible.builtin.copy:
+        src: /vagrant/server-VM2.properties
+        dest: /home/ubuntu/kafka/config/server.properties
+        follow: 'yes'
+
+#####################################################
+### Play 4: Modify Kafka configs for VM3
+#####################################################  
+- name: Modify Kafka configs
+  hosts: 18.222.137.222 ansible_connection=ssh ansible_ssh_private_key_file=/vagrant/CS4287-FINAL-PROJECT
+  remote_user: ubuntu
+  become: yes
+
+  tasks:
+    - name: Copy server file to the remote machine
+      ansible.builtin.copy:
+        src: /vagrant/server-VM3.properties
+        dest: /home/ubuntu/kafka/config/server.properties
+        follow: 'yes'
+
+
+
+#####################################################
+### Play 4: Install python modules
+#####################################################  
+- name: Install python modules
+  hosts: MyChamVMs
+  remote_user: ubuntu
+  become: yes
+
+  tasks:
+    - name: Install kafka modules
+      shell: sudo pip install kafka-python
+    - name: Install CouchDB modules
+      shell: sudo pip install couchdb
+
+
+
+...

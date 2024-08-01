@@ -1,0 +1,8 @@
+---
+- name: Master Playbook
+  hosts: MyLocalVMs
+
+- import_playbook: playbook_1_fact_checking.yml
+- import_playbook: playbook_2_set_up_java.yml
+- import_playbook: playbook_4_kafka_setup.yml
+...

@@ -1,0 +1,17 @@
+#
+# Author: Vikash Singh
+# CS4287-5287 Principles of Cloud Computing
+# Created: Fall 2022
+#
+[MyLocalVMs]
+127.0.0.1  ansible_connection=local
+
+# Chameleon VMs. Note the path of private key is now in the Vagrant-created VM
+[MyChamVMs]
+3.222.26.93 ansible_connection=ssh ansible_ssh_private_key_file=/vagrant/cs4287-vm1
+3.14.135.65 ansible_connection=ssh ansible_ssh_private_key_file=/vagrant/CS4287-team7.pem
+18.218.173.77 ansible_connection=ssh ansible_ssh_private_key_file=/vagrant/CS4287-FINAL-PROJECT
+
+# AWS VMs. Note the path of private key is now in the Vagrant-created VM
+[MyAWSVMs]
+

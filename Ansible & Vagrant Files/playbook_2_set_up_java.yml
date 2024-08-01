@@ -1,0 +1,46 @@
+---
+- name: Playbook 2
+  hosts: MyLocalVMs
+
+#####################################################
+### Play 2: install a package via the aptitude module
+#####################################################  
+- name: Setup Java and Kafka on VMs
+  hosts: MyChamVMs
+  remote_user: ubuntu   # change the user to whatever is the user on the cloud VM
+  become: true
+  tasks:
+    - name: Install default JRE
+      apt:
+        name: default-jre
+        state: latest
+        update_cache: yes
+
+    - name: Install default JDK
+      apt:
+        name: default-jdk
+        state: latest
+
+    - name: Create Downloads directory
+      file:
+        path: "/home/ubuntu/Downloads"
+        state: directory
+
+    - name: Download Kafka binaries
+      get_url:
+        url: "https://dlcdn.apache.org/kafka/3.6.1/kafka_2.13-3.6.1.tgz"
+        dest: "/home/ubuntu/Downloads/kafka.tgz"
+
+    - name: Create Kafka directory
+      file:
+        path: "/home/ubuntu/kafka"
+        state: directory
+
+    - name: Extract Kafka binaries
+      unarchive:
+        src: "/home/ubuntu/Downloads/kafka.tgz"
+        dest: "/home/ubuntu/kafka"
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+
+...
